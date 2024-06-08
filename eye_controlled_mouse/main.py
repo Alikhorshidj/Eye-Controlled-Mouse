@@ -14,9 +14,11 @@ while True:
     landmark_points = output.multi_face_landmarks
     if landmark_points:
         landmarks = landmark_points[0].landmark
+        frame_h, frame_w, _ = frame.shape
         for landmark in landmarks:
-            x = landmark.x
-            y = landmark.y
+            x = int(landmark.x * frame_w)
+            y = int(landmark.y * frame_h)
+            cv2.circle(frame, (x, y), 3, (0, 255, 0), 0)
             print(x, y)
     cv2.imshow('Eye Controlled Mouse', frame)
     cv2.waitKey(1)
